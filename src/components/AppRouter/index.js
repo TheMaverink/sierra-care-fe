@@ -22,11 +22,19 @@ const AppRouter = (props) => {
         const routeId = `${pagePath}-route`;
 
         return pagePath === "login" ? (
-          <Route
-            key={routeId}
-            path={`/${pagePath}`}
-            element={<PageComponent />}
-          />
+          !isAuthenticated ? (
+            <Route
+              key={routeId}
+              path={`/${pagePath}`}
+              element={<PageComponent />}
+            />
+          ) : (
+            <Route
+              key={routeId}
+              path="*"
+              element={<Navigate to="/dashboard" />}
+            />
+          )
         ) : !isAuthenticated && !isAppLoading ? (
           <Route key={routeId} path="*" element={<Navigate to="/login" />} />
         ) : (
