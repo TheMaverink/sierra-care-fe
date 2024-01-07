@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SLICE_NAME } from "./consts";
 
-import { loginVolunteerAction, logoutVolunteerAction } from "./actions";
+import {
+  loginVolunteerAction,
+  logoutVolunteerAction,
+  isVolunteerLoggedInAction,
+} from "./actions";
 
 const initialState = {
   volunteersList: null,
@@ -44,6 +48,18 @@ export const VolunteersSlice = createSlice({
         state.isVolunteersReducerLoading = false;
         state.thisVolunteer = null;
         state.isThisVolunteerAuthenticated = false;
+      })
+      .addCase(isVolunteerLoggedInAction.pending, (state) => {
+        state.isVolunteersReducerLoading = true;
+      })
+      .addCase(isVolunteerLoggedInAction.rejected, (state) => {
+        state.isVolunteersReducerLoading = false;
+      })
+      .addCase(isVolunteerLoggedInAction.fulfilled, (state, action) => {
+
+        state.isVolunteersReducerLoading = false;
+        state.isThisVolunteerAuthenticated = action?.payload?.isVolunteerLoggedIn || false;
+        state.thisVolunteer = action?.payload?.volunteer || null;
       });
   },
 });

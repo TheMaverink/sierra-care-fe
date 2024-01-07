@@ -20,7 +20,7 @@ const AppRouter = (props) => {
         const pagePath = page[0].toLowerCase().replace(/page$/, "");
         const PageComponent = page[1];
         const routeId = `${pagePath}-route`;
-
+        //TODO! fix this when refreshed into login, login works and doesnt redirect
         return pagePath === "login" ? (
           !isAuthenticated ? (
             <Route
