@@ -7,3 +7,7 @@ export const getPatientsApi = (payload) => {
 
   return axios.get(url);
 };
+
+export const createPatientApi = (patientData) => {
+  return axios.post("/patients/new", patientData);
+};

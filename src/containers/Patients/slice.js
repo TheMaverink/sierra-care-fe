@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SLICE_NAME } from "./consts";
 
-import { getPatientsAction } from "./actions";
+import { getPatientsAction, createPatientAction } from "./actions";
 
 const initialState = {
   isPatientsReducerLoading: false,
@@ -25,6 +25,15 @@ export const PatientsSlice = createSlice({
       .addCase(getPatientsAction.fulfilled, (state, action) => {
         state.isPatientsReducerLoading = false;
         state.patients = action.payload;
+      })
+      .addCase(createPatientAction.pending, (state) => {
+        state.isPatientsReducerLoading = true;
+      })
+      .addCase(createPatientAction.rejected, (state) => {
+        state.isPatientsReducerLoading = false;
+      })
+      .addCase(createPatientAction.fulfilled, (state, action) => {
+        state.isPatientsReducerLoading = false;
       });
   },
 });

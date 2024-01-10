@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getPatientsApi } from "./api";
+import { getPatientsApi ,createPatientApi} from "./api";
 
 export const getPatientsAction = createAsyncThunk(
   "patients/get",
@@ -12,6 +12,23 @@ export const getPatientsAction = createAsyncThunk(
       console.log(getPatientsApiResponse)
 
       return getPatientsApiResponse.data;
+    } catch (error) {
+      console.log("getPatientsAction error!", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const createPatientAction = createAsyncThunk(
+  "patients/create",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const createPatientApiResponse = await createPatientApi(payload);
+
+      console.log("createPatientApiResponse")
+      console.log(createPatientApiResponse)
+
+      return createPatientApiResponse.data;
     } catch (error) {
       console.log("getPatientsAction error!", error);
       return rejectWithValue(error.response.data);
