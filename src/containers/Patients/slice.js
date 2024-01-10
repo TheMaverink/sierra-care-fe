@@ -2,11 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SLICE_NAME } from "./consts";
 
-import { getPatientsAction, createPatientAction } from "./actions";
+import { getPatientsAction, getPatientAction,createPatientAction } from "./actions";
 
 const initialState = {
   isPatientsReducerLoading: false,
   patients: null,
+  patient: null,
 };
 
 export const PatientsSlice = createSlice({
@@ -34,6 +35,15 @@ export const PatientsSlice = createSlice({
       })
       .addCase(createPatientAction.fulfilled, (state, action) => {
         state.isPatientsReducerLoading = false;
+      }).addCase(getPatientAction.pending, (state) => {
+        state.isPatientsReducerLoading = true;
+      })
+      .addCase(getPatientAction.rejected, (state) => {
+        state.isPatientsReducerLoading = false;
+      })
+      .addCase(getPatientAction.fulfilled, (state, action) => {
+        state.isPatientsReducerLoading = false;
+        state.patient = action.payload
       });
   },
 });

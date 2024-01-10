@@ -22,6 +22,13 @@ export const patientsListSelector = createSelector(
   }
 );
 
+export const patientSelector = createSelector(
+  patientsSelector,
+  (patientsState) => {
+    return patientsState?.patient;
+  }
+);
+
 export const patientsListNormalizedDataSelector = createSelector(
   patientsListSelector,
   (patientsList) => {
@@ -38,6 +45,7 @@ export const patientsListNormalizedDataSelector = createSelector(
 
       patientsList.data.forEach((patientData) => {
         const {
+          _id: id,
           firstName,
           middleName,
           lastName,
@@ -48,9 +56,11 @@ export const patientsListNormalizedDataSelector = createSelector(
           healthRisk,
         } = patientData;
 
-        console.log("DIF!!!");
-        console.log(moment().diff(dob, "years"));
+        console.log("patientData");
+        console.log(patientData);
+
         normalizeDataArray.push({
+          id,
           image: patientImages?.length > 0 && patientImages[0],
           name: `${firstName} ${middleName ? middleName[0] : ""} ${lastName}`,
           gender,

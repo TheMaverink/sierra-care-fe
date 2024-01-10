@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import PatientsFilters from "./components/PatientsFilters";
 import PatientsTable from "./components/PatientsTable";
@@ -50,9 +50,7 @@ export default function PatientsPage() {
 
   return (
     <>
-      <button onClick={() => navigate("/addpatient")}>
-        Add Patient
-      </button>
+      <button onClick={() => navigate("/addpatient")}>Add Patient</button>
 
       <PatientsFilters
         tableFilters={tableFilters}

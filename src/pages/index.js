@@ -3,7 +3,7 @@ import DashboardPage from "./Dashboard";
 import ProfilePage from "./Profile";
 
 import PatientsPage from "./Patients/Patients";
-import PatientDetailsPage from "./Patients/PatientDetails";
+import PatientProfilePage from "./Patients/PatientProfile";
 import AddPatientPage from "./Patients/AddPatient";
 import ClinicsPage from "./Clinics/Clinics";
 import ClinicPage from "./Clinics/Clinic";
@@ -13,7 +13,7 @@ export default {
   DashboardPage,
   ProfilePage,
   PatientsPage,
-  PatientDetailsPage,
+  PatientProfilePage,
   AddPatientPage,
   ClinicsPage,
   ClinicPage,

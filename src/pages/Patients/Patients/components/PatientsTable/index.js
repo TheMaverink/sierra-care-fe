@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -44,6 +45,7 @@ export default function PatientsTable(props) {
   } = props;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     dispatch(getPatientsAction({ page: newPage + 1, limit, searchQuery }));
@@ -75,15 +77,16 @@ export default function PatientsTable(props) {
               <TableBody>
                 {data &&
                   data.map((row, index) => {
-                    console.log("row")
-                    console.log(row)
-                    const isItemSelected = isSelected(row.id);
+                    console.log("row");
+                    console.log(row);
+                    const patientId = row.id
+                    const isItemSelected = isSelected(patientId);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => console.log(event)}
+                        onClick={() => navigate(`/patientProfile?patientId=${patientId}`)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
