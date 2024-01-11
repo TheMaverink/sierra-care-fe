@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { setAuthToken } from "utils/setAuthToken";
-import { volunteerLoginApi, isVolunteerLoggedInApi } from "./api";
+import {
+  volunteerLoginApi,
+  isVolunteerLoggedInApi,
+  getVolunteersOverviewApi,
+} from "./api";
 
 export const loginVolunteerAction = createAsyncThunk(
   "volunteers/login",
@@ -56,6 +60,23 @@ export const isVolunteerLoggedInAction = createAsyncThunk(
     } catch (error) {
       console.log("logoutVolunteerAction error!", error);
       return thunkApi.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getVolunteersOverviewAction = createAsyncThunk(
+  "volunteers/overview",
+  async (_, { rejectWithValue }) => {
+    try {
+      const getVolunteersOverviewApiResponse = await getVolunteersOverviewApi();
+
+      console.log("getVolunteersOverviewApiResponse");
+      console.log(getVolunteersOverviewApiResponse);
+
+      return getVolunteersOverviewApiResponse.data;
+    } catch (error) {
+      console.log("getPatientsAction error!", error);
+      return rejectWithValue(error.response.data);
     }
   }
 );

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import Nav from "parts/Nav";
+import Nav from "components/Nav";
 import AppRouter from "components/AppRouter";
 
 import { setAuthToken } from "utils/setAuthToken";

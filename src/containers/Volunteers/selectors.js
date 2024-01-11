@@ -17,3 +17,10 @@ export const isVolunteersSliceLoadingSelector = createSelector(
     return volunteersState.isVolunteersReducerLoading;
   }
 );
+
+export const volunteersOverviewSelector = createSelector(
+  volunteersSelector,
+  (volunteersState) => {
+    return volunteersState?.volunteersOverview;
+  }
+);

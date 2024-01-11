@@ -2,12 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SLICE_NAME } from "./consts";
 
-import { getPatientsAction, getPatientAction,createPatientAction } from "./actions";
+import {
+  getPatientsAction,
+  getPatientAction,
+  createPatientAction,
+  getPatientsOverviewAction,
+} from "./actions";
 
 const initialState = {
   isPatientsReducerLoading: false,
   patients: null,
   patient: null,
+  patientsOverview: null,
 };
 
 export const PatientsSlice = createSlice({
@@ -35,7 +41,8 @@ export const PatientsSlice = createSlice({
       })
       .addCase(createPatientAction.fulfilled, (state, action) => {
         state.isPatientsReducerLoading = false;
-      }).addCase(getPatientAction.pending, (state) => {
+      })
+      .addCase(getPatientAction.pending, (state) => {
         state.isPatientsReducerLoading = true;
       })
       .addCase(getPatientAction.rejected, (state) => {
@@ -43,7 +50,17 @@ export const PatientsSlice = createSlice({
       })
       .addCase(getPatientAction.fulfilled, (state, action) => {
         state.isPatientsReducerLoading = false;
-        state.patient = action.payload
+        state.patient = action.payload;
+      })
+      .addCase(getPatientsOverviewAction.pending, (state) => {
+        state.isPatientsReducerLoading = true;
+      })
+      .addCase(getPatientsOverviewAction.rejected, (state) => {
+        state.isPatientsReducerLoading = false;
+      })
+      .addCase(getPatientsOverviewAction.fulfilled, (state, action) => {
+        state.isPatientsReducerLoading = false;
+        state.patientsOverview = action.payload;
       });
   },
 });

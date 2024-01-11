@@ -10,11 +10,11 @@ export default function Nav() {
   return (
     <div>
       <Link to="/dashboard">Dashboard</Link>
-      <Link to="/profile">Profile</Link>
       <Link to="/patients">Patients</Link>
       <Link to="/clinics">Clinics</Link>
+      <Link to="/admin">Admin</Link>
 
-      <button onClick={async () => await dispatch(logoutVolunteerAction())}>
+      <button onClick={async () => dispatch(logoutVolunteerAction())}>
         LOGOUT
       </button>
     </div>

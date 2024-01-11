@@ -13,7 +13,10 @@ export const createPatientApi = (patientData) => {
 };
 
 export const getPatientApi = (payload) => {
-
-  const url = `/patients/${payload}`
+  const url = `/patients/patient/${payload}`;
   return axios.get(url);
+};
+
+export const getPatientsOverviewApi = () => {
+  return axios.get(`/patients/overview`);
 };

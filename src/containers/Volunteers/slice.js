@@ -6,6 +6,7 @@ import {
   loginVolunteerAction,
   logoutVolunteerAction,
   isVolunteerLoggedInAction,
+  getVolunteersOverviewAction,
 } from "./actions";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   isThisVolunteerAuthenticated: false,
   //misc
   isVolunteersReducerLoading: false,
+  volunteersOverview: null,
 };
 
 export const VolunteersSlice = createSlice({
@@ -56,10 +58,20 @@ export const VolunteersSlice = createSlice({
         state.isVolunteersReducerLoading = false;
       })
       .addCase(isVolunteerLoggedInAction.fulfilled, (state, action) => {
-
         state.isVolunteersReducerLoading = false;
-        state.isThisVolunteerAuthenticated = action?.payload?.isVolunteerLoggedIn || false;
+        state.isThisVolunteerAuthenticated =
+          action?.payload?.isVolunteerLoggedIn || false;
         state.thisVolunteer = action?.payload?.volunteer || null;
+      })
+      .addCase(getVolunteersOverviewAction.pending, (state) => {
+        state.isVolunteersReducerLoading = true;
+      })
+      .addCase(getVolunteersOverviewAction.rejected, (state) => {
+        state.isVolunteersReducerLoading = false;
+      })
+      .addCase(getVolunteersOverviewAction.fulfilled, (state, action) => {
+        state.isVolunteersReducerLoading = false;
+        state.volunteersOverview = action.payload;
       });
   },
 });

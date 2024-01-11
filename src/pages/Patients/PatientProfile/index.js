@@ -40,30 +40,30 @@ export default function PatientProfile() {
           </Typography>
           <Typography>
             <strong>Name:</strong>{" "}
-            {`${patient.firstName} ${patient.middleName} ${patient.lastName}`}
+            {`${patient?.firstName} ${patient?.middleName} ${patient?.lastName}`}
           </Typography>
           <Typography>
-            <strong>Gender:</strong> {patient.gender}
+            <strong>Gender:</strong> {patient?.gender}
           </Typography>
           <Typography>
             <strong>Date of Birth:</strong>{" "}
-            {new Date(patient.dob).toLocaleDateString()}
+            {new Date(patient?.dob).toLocaleDateString()}
           </Typography>
           <Typography>
-            <strong>Marital Status:</strong> {patient.maritalStatus}
+            <strong>Marital Status:</strong> {patient?.maritalStatus}
           </Typography>
           <Typography>
-            <strong>Number of Children:</strong> {patient.noOfChildren}
+            <strong>Number of Children:</strong> {patient?.noOfChildren}
           </Typography>
           <Typography>
-            <strong>Job:</strong> {patient.job}
+            <strong>Job:</strong> {patient?.job}
           </Typography>
           <Typography>
-            <strong>Income:</strong> {patient.income}
+            <strong>Income:</strong> {patient?.income}
           </Typography>
           <Typography>
             <strong>English Speaking Level:</strong>{" "}
-            {patient.englishSpeakingLevel}
+            {patient?.englishSpeakingLevel}
           </Typography>
         </Grid>
 
@@ -72,18 +72,18 @@ export default function PatientProfile() {
             Health Information
           </Typography>
           <Typography>
-            <strong>Blood Type:</strong> {patient.bloodType}
+            <strong>Blood Type:</strong> {patient?.bloodType}
           </Typography>
           <Typography>
-            <strong>Health Risk:</strong> {patient.healthRisk}
+            <strong>Health Risk:</strong> {patient?.healthRisk}
           </Typography>
           <Typography>
-            <strong>Is Pregnant:</strong> {patient.isPregnant ? "Yes" : "No"}
+            <strong>Is Pregnant:</strong> {patient?.isPregnant ? "Yes" : "No"}
           </Typography>
-          {patient.isPregnant && (
+          {patient?.isPregnant && (
             <Typography>
               <strong>Conceiving Date:</strong>{" "}
-              {new Date(patient.conceivingDate).toLocaleDateString()}
+              {new Date(patient?.conceivingDate).toLocaleDateString()}
             </Typography>
           )}
         </Grid>
@@ -93,10 +93,10 @@ export default function PatientProfile() {
             Contact Information
           </Typography>
           <Typography>
-            <strong>Email:</strong> {patient.email}
+            <strong>Email:</strong> {patient?.email}
           </Typography>
           <Typography>
-            <strong>Mobile Phone:</strong> {patient.mobilePhone}
+            <strong>Mobile Phone:</strong> {patient?.mobilePhone}
           </Typography>
         </Grid>
       </Grid>

@@ -76,3 +76,124 @@ export const patientsListNormalizedDataSelector = createSelector(
     }
   }
 );
+
+export const patientsOverviewSelector = createSelector(
+  patientsSelector,
+  (patientsState) => {
+    return patientsState?.patientsOverview;
+  }
+);
+
+export const patientsOverviewChartsDataSelector = createSelector(
+  patientsOverviewSelector,
+  (patientsOverview) => {
+    const patientsOverviewChartsData = {};
+
+    if (patientsOverview) {
+      patientsOverviewChartsData.ages = [
+        {
+          name: "<18",
+          data: patientsOverview.ageRange1,
+        },
+        {
+          name: "18-25",
+          data: patientsOverview.ageRange2,
+        },
+        {
+          name: "25-35",
+          data: patientsOverview.ageRange3,
+        },
+        {
+          name: "35-45",
+          data: patientsOverview.ageRange4,
+        },
+        {
+          name: "45-55",
+          data: patientsOverview.ageRange5,
+        },
+        {
+          name: ">55",
+          data: patientsOverview.ageRange6,
+        },
+      ];
+
+      patientsOverviewChartsData.mobilePhoneAccess = [
+        {
+          name: "noAccess",
+          label: "No Access",
+          value: Math.round(
+            (100 *
+              (patientsOverview.totalPatients -
+                patientsOverview.patientsWithMobilePhoneAccess)) /
+              patientsOverview.totalPatients
+          ),
+        },
+        {
+          name: "withAccess",
+          label: "With Access",
+          value: Math.round(
+            (100 * patientsOverview.patientsWithMobilePhoneAccess) /
+              patientsOverview.totalPatients
+          ),
+        },
+      ];
+
+      patientsOverviewChartsData.englishLevel = [
+        {
+          name: "unknownLevel",
+          label: "Unknown",
+          value: Math.round(
+            (100 *
+              (patientsOverview.totalPatients -
+                patientsOverview.unknownEnglishSpeakingPatients)) /
+              patientsOverview.unknownEnglishSpeakingPatients
+          ),
+        },
+        {
+          name: "noLevel",
+          label: "No English",
+          value: Math.round(
+            (100 * patientsOverview.noEnglishSpeakingPatients) /
+              patientsOverview.totalPatients
+          ),
+        },
+        {
+          name: "begginer",
+          label: "Begginer",
+          value: Math.round(
+            (100 * patientsOverview.beginnerEnglishSpeakingPatients) /
+              patientsOverview.totalPatients
+          ),
+        },
+        {
+          name: "elementary",
+          label: "Elementary",
+          value: Math.round(
+            (100 * patientsOverview.elementaryEnglishSpeakingPatients) /
+              patientsOverview.totalPatients
+          ),
+        },
+        {
+          name: "intermediate",
+          label: "Intermediate",
+          value: Math.round(
+            (100 * patientsOverview.intermediateEnglishSpeakingPatients) /
+              patientsOverview.totalPatients
+          ),
+        },
+        {
+          name: "advanced",
+          label: "Advanced",
+          value: Math.round(
+            (100 * patientsOverview.advancedEnglishSpeakingPatients) /
+              patientsOverview.totalPatients
+          ),
+        },
+      ];
+
+      return patientsOverviewChartsData;
+    } else {
+      return null;
+    }
+  }
+);
