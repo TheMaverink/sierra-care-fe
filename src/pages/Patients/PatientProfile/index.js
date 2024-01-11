@@ -7,6 +7,8 @@ import { patientSelector } from "containers/Patients/selectors";
 
 import { Paper, Typography, Grid, Divider } from "@mui/material";
 
+import CreatePatientLog from "./components/CreatePatientLog";
+
 export default function PatientProfile() {
   const dispatch = useDispatch();
 
@@ -16,11 +18,6 @@ export default function PatientProfile() {
 
   const query = new URLSearchParams(location.search);
   const patientId = query.get("patientId");
-
-  React.useEffect(() => {
-    console.log("patient");
-    console.log(patient);
-  }, [patient]);
 
   React.useEffect(() => {
     dispatch(getPatientAction(patientId));
@@ -100,6 +97,8 @@ export default function PatientProfile() {
           </Typography>
         </Grid>
       </Grid>
+
+      <CreatePatientLog patientId={patientId} patient={patient}/>
     </Paper>
   );
 }

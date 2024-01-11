@@ -5,6 +5,7 @@ import {
   createPatientApi,
   getPatientApi,
   getPatientsOverviewApi,
+  createPatientLogApi,
 } from "./api";
 
 export const getPatientsAction = createAsyncThunk(
@@ -68,6 +69,23 @@ export const getPatientsOverviewAction = createAsyncThunk(
       console.log(getPatientsOverviewApiResponse);
 
       return getPatientsOverviewApiResponse.data;
+    } catch (error) {
+      console.log("getPatientsAction error!", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const createPatientLogAction = createAsyncThunk(
+  "patients/create_log",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const createPatientLogApiResponse = await createPatientLogApi(payload);
+
+      console.log("createPatientLogApiResponse");
+      console.log(createPatientLogApiResponse);
+
+      return createPatientLogApiResponse.data;
     } catch (error) {
       console.log("getPatientsAction error!", error);
       return rejectWithValue(error.response.data);

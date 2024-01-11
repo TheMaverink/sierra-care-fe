@@ -7,6 +7,7 @@ import {
   getPatientAction,
   createPatientAction,
   getPatientsOverviewAction,
+  createPatientLogAction,
 } from "./actions";
 
 const initialState = {
@@ -61,6 +62,16 @@ export const PatientsSlice = createSlice({
       .addCase(getPatientsOverviewAction.fulfilled, (state, action) => {
         state.isPatientsReducerLoading = false;
         state.patientsOverview = action.payload;
+      })
+      .addCase(createPatientLogAction.pending, (state) => {
+        state.isPatientsReducerLoading = true;
+      })
+      .addCase(createPatientLogAction.rejected, (state) => {
+        state.isPatientsReducerLoading = false;
+      })
+      .addCase(createPatientLogAction.fulfilled, (state, action) => {
+        state.isPatientsReducerLoading = false;
+        state.patient = action.payload;
       });
   },
 });

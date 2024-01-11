@@ -20,3 +20,8 @@ export const getPatientApi = (payload) => {
 export const getPatientsOverviewApi = () => {
   return axios.get(`/patients/overview`);
 };
+
+export const createPatientLogApi = (payload) => {
+  return axios.post(`/patients/log/new`,payload);
+};
+
