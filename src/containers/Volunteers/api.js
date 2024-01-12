@@ -13,3 +13,16 @@ export const getVolunteersOverviewApi = () => {
 export const createVolunteerApi = (payload) => {
   return axios.post(`/volunteers/new`, payload);
 };
+
+export const getVolunteersApi = (payload) => {
+  const { page, limit, searchQuery } = payload;
+
+  const url = `/volunteers?page=${page}&limit=${limit}&searchQuery=${searchQuery}`;
+
+  return axios.get(url);
+};
+
+export const getVolunteerApi = (payload) => {
+  const url = `/volunteers/volunteer/${payload}`;
+  return axios.get(url);
+};

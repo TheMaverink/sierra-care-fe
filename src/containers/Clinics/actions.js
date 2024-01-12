@@ -3,9 +3,9 @@ import { getClinicsApi, createClinicApi } from "./api";
 
 export const getClinicsAction = createAsyncThunk(
   "clinics/get",
-  async (_, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      const getClinicsApiResponse = await getClinicsApi();
+      const getClinicsApiResponse = await getClinicsApi(payload);
 
       console.log("getClinicsApiResponse");
       console.log(getClinicsApiResponse);

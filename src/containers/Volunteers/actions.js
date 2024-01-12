@@ -6,6 +6,8 @@ import {
   isVolunteerLoggedInApi,
   getVolunteersOverviewApi,
   createVolunteerApi,
+  getVolunteersApi,
+  getVolunteerApi,
 } from "./api";
 
 export const loginVolunteerAction = createAsyncThunk(
@@ -35,6 +37,23 @@ export const logoutVolunteerAction = createAsyncThunk(
       localStorage.removeItem("token");
     } catch (error) {
       console.log("logoutVolunteerAction error!", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getVolunteerAction = createAsyncThunk(
+  "volunteers/getVolunteer",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const getVolunteerApiResponse = await getVolunteerApi(payload);
+
+      console.log("getVolunteerApiResponse");
+      console.log(getVolunteerApiResponse);
+
+      return getVolunteerApiResponse.data;
+    } catch (error) {
+      console.log("getPatientsAction error!", error);
       return rejectWithValue(error.response.data);
     }
   }
@@ -94,6 +113,23 @@ export const createVolunteerAction = createAsyncThunk(
       return createVolunteerApiResponse.data;
     } catch (error) {
       console.log("getPatientsAction error!", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getVolunteersAction = createAsyncThunk(
+  "volunteers/get",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const getVolunteersApiResponse = await getVolunteersApi(payload);
+
+      console.log("getVolunteersApiResponse");
+      console.log(getVolunteersApiResponse);
+
+      return getVolunteersApiResponse.data;
+    } catch (error) {
+      console.log("loginVolunteerAction error!", error);
       return rejectWithValue(error.response.data);
     }
   }

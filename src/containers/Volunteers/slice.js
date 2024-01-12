@@ -8,10 +8,13 @@ import {
   isVolunteerLoggedInAction,
   getVolunteersOverviewAction,
   createVolunteerAction,
+  getVolunteersAction,
+  getVolunteerAction,
 } from "./actions";
 
 const initialState = {
-  volunteersList: null,
+  volunteers: null,
+  volunteer:null,
   //this volunteer
   thisVolunteer: null,
   isThisVolunteerAuthenticated: false,
@@ -82,6 +85,28 @@ export const VolunteersSlice = createSlice({
       })
       .addCase(createVolunteerAction.fulfilled, (state, action) => {
         state.isVolunteersReducerLoading = false;
+      })
+      .addCase(getVolunteersAction.pending, (state) => {
+        state.isVolunteersReducerLoading = true;
+        state.volunteers = null;
+      })
+      .addCase(getVolunteersAction.rejected, (state) => {
+        state.isVolunteersReducerLoading = false;
+        state.volunteers = null;
+      })
+      .addCase(getVolunteersAction.fulfilled, (state, action) => {
+        state.isVolunteersReducerLoading = false;
+        state.volunteers = action.payload;
+      })
+      .addCase(getVolunteerAction.pending, (state) => {
+        state.isVolunteersReducerLoading = true;
+      })
+      .addCase(getVolunteerAction.rejected, (state) => {
+        state.isVolunteersReducerLoading = false;
+      })
+      .addCase(getVolunteerAction.fulfilled, (state, action) => {
+        state.isVolunteersReducerLoading = false;
+        state.volunteer = action.payload;
       });
   },
 });

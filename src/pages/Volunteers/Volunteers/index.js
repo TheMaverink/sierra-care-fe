@@ -2,24 +2,25 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import PatientsFilters from "./components/PatientsFilters";
-import PatientsTable from "./components/PatientsTable";
+import VolunteersFilters from "./components/VolunteersFilters";
+import VolunteersTable from "./components/VolunteersTable";
 
-import { getPatientsAction } from "containers/Patients/actions";
+import { getVolunteersAction } from "containers/Volunteers/actions";
 import {
-  patientsListSelector,
-  isPatientsSliceLoadingSelector,
-  patientsListNormalizedDataSelector,
-} from "containers/Patients/selectors";
+  volunteersListSelector,
+  isVolunteersSliceLoadingSelector,
+  volunteersListNormalizedDataSelector,
+} from "containers/Volunteers/selectors";
 
-export default function PatientsPage() {
+export default function VolunteersPage() {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const patientsList = useSelector(patientsListSelector);
-  const patientsListNormalizedData = useSelector(
-    patientsListNormalizedDataSelector
+  const volunteersList = useSelector(volunteersListSelector);
+  const volunteersListNormalizedData = useSelector(
+    volunteersListNormalizedDataSelector
   );
-  const isLoading = useSelector(isPatientsSliceLoadingSelector);
+  const isLoading = useSelector(isVolunteersSliceLoadingSelector);
 
   const [limit, setLimit] = React.useState(10);
 
@@ -36,31 +37,31 @@ export default function PatientsPage() {
   const [tableFilters, setTableFilters] = React.useState([]);
 
   React.useEffect(() => {
-    const initialPatientsFetch = async () => {
-      dispatch(getPatientsAction({ page: 1, limit, searchQuery }));
+    const initialVolunteersFetch = async () => {
+      dispatch(getVolunteersAction({ page: 1, limit, searchQuery }));
     };
-    initialPatientsFetch();
+    initialVolunteersFetch();
   }, []);
 
   const updateFilters = (values) => {
     setTableFilters(values);
 
-    dispatch(getPatientsAction({ page: 1, limit, searchQuery: values.name }));
+    dispatch(getVolunteersAction({ page: 1, limit, searchQuery: values.name }));
   };
 
   return (
     <>
-      <button onClick={() => navigate("/addPatient")}>Add Patient</button>
+      <button onClick={() => navigate("/addVolunteer")}>Add Volunteer</button>
 
-      <PatientsFilters
+      <VolunteersFilters
         tableFilters={tableFilters}
         setTableFilters={setTableFilters}
         updateFilters={updateFilters}
-      ></PatientsFilters>
+      ></VolunteersFilters>
 
-      <PatientsTable
-        data={patientsListNormalizedData}
-        patientsList={patientsList}
+      <VolunteersTable
+        data={volunteersListNormalizedData}
+        volunteersList={volunteersList}
         limit={limit}
         setLimit={setLimit}
         searchQuery={searchQuery}

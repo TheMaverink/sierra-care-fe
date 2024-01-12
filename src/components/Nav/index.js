@@ -11,12 +11,13 @@ export default function Nav() {
     <div>
       <Link to="/dashboard">Dashboard</Link>
       <Link to="/patients">Patients</Link>
+      <Link to="/volunteers">Volunteers</Link>
       <Link to="/clinics">Clinics</Link>
-      <Link to="/admin">Admin</Link>
 
       <button onClick={async () => dispatch(logoutVolunteerAction())}>
         LOGOUT
       </button>
+      <Link to="/profile">Profile</Link>
     </div>
   );
 }
