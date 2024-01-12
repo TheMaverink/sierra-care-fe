@@ -7,6 +7,7 @@ import {
   logoutVolunteerAction,
   isVolunteerLoggedInAction,
   getVolunteersOverviewAction,
+  createVolunteerAction,
 } from "./actions";
 
 const initialState = {
@@ -72,6 +73,15 @@ export const VolunteersSlice = createSlice({
       .addCase(getVolunteersOverviewAction.fulfilled, (state, action) => {
         state.isVolunteersReducerLoading = false;
         state.volunteersOverview = action.payload;
+      })
+      .addCase(createVolunteerAction.pending, (state) => {
+        state.isVolunteersReducerLoading = true;
+      })
+      .addCase(createVolunteerAction.rejected, (state) => {
+        state.isVolunteersReducerLoading = false;
+      })
+      .addCase(createVolunteerAction.fulfilled, (state, action) => {
+        state.isVolunteersReducerLoading = false;
       });
   },
 });

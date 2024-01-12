@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+
+import AddVolunteerForm from "./components/AddVolunteerForm";
+import AddClinicForm from "./components/AddClinicForm";
 
 export default function AdminPage() {
   return (
-    <div>AdminPage</div>
-  )
+    <div>
+      <AddVolunteerForm />
+      <AddClinicForm />
+    </div>
+  );
 }

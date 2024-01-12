@@ -5,6 +5,7 @@ import {
   volunteerLoginApi,
   isVolunteerLoggedInApi,
   getVolunteersOverviewApi,
+  createVolunteerApi,
 } from "./api";
 
 export const loginVolunteerAction = createAsyncThunk(
@@ -74,6 +75,23 @@ export const getVolunteersOverviewAction = createAsyncThunk(
       console.log(getVolunteersOverviewApiResponse);
 
       return getVolunteersOverviewApiResponse.data;
+    } catch (error) {
+      console.log("getPatientsAction error!", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const createVolunteerAction = createAsyncThunk(
+  "volunteers/new",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const createVolunteerApiResponse = await createVolunteerApi(payload);
+
+      console.log("createVolunteerApiResponse");
+      console.log(createVolunteerApiResponse);
+
+      return createVolunteerApiResponse.data;
     } catch (error) {
       console.log("getPatientsAction error!", error);
       return rejectWithValue(error.response.data);

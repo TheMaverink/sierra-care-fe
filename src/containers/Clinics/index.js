@@ -1,7 +1,7 @@
 import slice from "./slice";
-import actions from "./actions";
-import  * as selectors from "./selectors";
-import api from "./api";
+import * as actions from "./actions";
+import * as selectors from "./selectors";
+import * as api from "./api";
 import * as consts from "./consts";
 
 export default {

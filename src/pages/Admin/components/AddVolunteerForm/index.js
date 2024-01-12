@@ -32,7 +32,7 @@ const CreatePatientLog = ({ patientId, patient }) => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Patient Log Form
+          Add Volunteer
         </Typography>
         <div>{`number logs ${patient?.logs?.length}`}</div>
 
