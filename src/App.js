@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import Nav from "components/Nav";
 import AppRouter from "components/AppRouter";
 

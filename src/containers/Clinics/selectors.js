@@ -4,7 +4,7 @@ import { SLICE_NAME } from "./consts";
 
 export const clinicsSelector = (state) => state[SLICE_NAME];
 
-export const isClinicsliceLoadingSelector = createSelector(
+export const isClinicsSliceLoadingSelector = createSelector(
   clinicsSelector,
   (clinicsState) => {
     return clinicsState.isClinicsReducerLoading;
@@ -15,6 +15,13 @@ export const clinicsListSelector = createSelector(
   clinicsSelector,
   (clinicsState) => {
     return clinicsState?.clinics;
+  }
+);
+
+export const clinicSelector = createSelector(
+  clinicsSelector,
+  (clinicsState) => {
+    return clinicsState?.clinic;
   }
 );
 

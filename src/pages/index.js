@@ -11,7 +11,9 @@ import VolunteerProfilePage from "./Volunteers/VolunteerProfile";
 import AddVolunteerPage from "./Volunteers/AddVolunteer";
 
 import ClinicsPage from "./Clinics/Clinics";
-import ClinicPage from "./Clinics/Clinic";
+import ClinicProfilePage from "./Clinics/ClinicProfile";
+import AddClinicPage from "./Clinics/AddClinic";
+
 
 export default {
   LoginPage,
@@ -21,7 +23,8 @@ export default {
   PatientProfilePage,
   AddPatientPage,
   ClinicsPage,
-  ClinicPage,
+  ClinicProfilePage,
+  AddClinicPage,
   VolunteersPage,
   VolunteerProfilePage,
   AddVolunteerPage,

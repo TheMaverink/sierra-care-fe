@@ -2,11 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { SLICE_NAME } from "./consts";
 
-import { getClinicsAction, createClinicAction } from "./actions";
+import {
+  getClinicsAction,
+  createClinicAction,
+  getClinicAction,
+} from "./actions";
 
 const initialState = {
   isClinicsReducerLoading: false,
   clinics: null,
+  clinic: null,
 };
 
 export const ClinicsSlice = createSlice({
@@ -38,6 +43,18 @@ export const ClinicsSlice = createSlice({
       .addCase(createClinicAction.fulfilled, (state, action) => {
         state.isClinicsReducerLoading = false;
         state.clinics = action.payload;
+      })
+      .addCase(getClinicAction.pending, (state) => {
+        state.isClinicsReducerLoading = true;
+        state.clinic = null;
+      })
+      .addCase(getClinicAction.rejected, (state) => {
+        state.isClinicsReducerLoading = false;
+        state.clinic = null;
+      })
+      .addCase(getClinicAction.fulfilled, (state, action) => {
+        state.isClinicsReducerLoading = false;
+        state.clinic = action.payload;
       });
   },
 });

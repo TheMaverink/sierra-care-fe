@@ -11,3 +11,8 @@ export const getClinicsApi = (payload) => {
 export const createClinicApi = (payload) => {
   return axios.post(`/clinics/new`, payload);
 };
+
+export const getClinicApi = (payload) => {
+  const url = `/clinics/clinic/${payload}`;
+  return axios.get(url);
+};
