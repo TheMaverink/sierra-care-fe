@@ -1,21 +1,32 @@
 import * as React from "react";
+import styled from "styled-components";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
+const CardWrapper = styled.div`
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: white;
+`;
+
 export default function BasicCard(props) {
   const { description, value } = props;
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {value}
-        </Typography>
+    <CardWrapper>
+      <Typography variant="h6" color="black">
+        {description}
+      </Typography>
 
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {description}
-        </Typography>
-      </CardContent>
-    </Card>
+      <Typography variant="h4" color="black" >
+        {value}
+      </Typography>
+    </CardWrapper>
   );
 }

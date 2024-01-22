@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { getPatientsOverviewAction } from "containers/Patients/actions";
@@ -10,10 +12,10 @@ import {
 } from "containers/Patients/selectors";
 import { volunteersOverviewSelector } from "containers/Volunteers/selectors";
 
-import Card from "components/Card";
-import AgesChart from "./components/charts/AgesChart";
-import MobilePhoneAccessChart from "./components/charts/MobilePhoneAccessChart";
-import EnglishLevelChart from "./components/charts/EnglishLevelChart";
+import Cards from "./components/Cards";
+import Charts from "./components/Charts";
+
+const DashboardPageWrapper = styled.div``;
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -42,46 +44,10 @@ export default function DashboardPage() {
   }, [patientsOverview, volunteersOverview, patientsOverviewChartsData]);
 
   return (
-    <div>
-      {typeof patientsOverview?.totalPatients == "number" && (
-        <Card
-          value={patientsOverview?.totalPatients}
-          description="Total patients"
-        />
-      )}
-
-      {typeof patientsOverview?.patientsCreatedThisWeek == "number" && (
-        <Card
-          value={patientsOverview?.patientsCreatedThisWeek}
-          description="Patients created this week"
-        />
-      )}
-
-      {typeof patientsOverview?.patientsBornThisYear == "number" && (
-        <Card
-          value={patientsOverview?.patientsBornThisYear}
-          description="births this year"
-        />
-      )}
-
-      {typeof patientsOverview?.patientsDeaths == "number" && (
-        <Card value={patientsOverview?.patientsDeaths} description="deaths" />
-      )}
-
-      {patientsOverviewChartsData?.ages && (
-        <AgesChart data={patientsOverviewChartsData?.ages} />
-      )}
-
-      {patientsOverviewChartsData?.mobilePhoneAccess && (
-        <MobilePhoneAccessChart
-          data={patientsOverviewChartsData?.mobilePhoneAccess}
-        />
-      )}
-
-      {patientsOverviewChartsData?.englishLevel && (
-        <EnglishLevelChart data={patientsOverviewChartsData?.englishLevel} />
-      )}
-    </div>
+    <>
+      <Cards patientsOverview={patientsOverview} />
+      <Charts patientsOverviewChartsData={patientsOverviewChartsData}></Charts>
+    </>
 
     //PIE chart with sexes
     //cards X new patients this week

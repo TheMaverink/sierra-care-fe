@@ -12,6 +12,13 @@ export const isThisVolunteerAuthenticatedSelector = createSelector(
   }
 );
 
+export const thisVolunteerSelector = createSelector(
+  volunteersSelector,
+  (volunteersState) => {
+    return volunteersState.thisVolunteer;
+  }
+);
+
 export const isVolunteersSliceLoadingSelector = createSelector(
   volunteersSelector,
   (volunteersState) => {

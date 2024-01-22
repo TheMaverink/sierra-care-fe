@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell ,ResponsiveContainer} from "recharts";
 
 // const data = [
 //   { name: "Group A", value: 400,label:"label test" },
@@ -38,6 +38,7 @@ export default function MobilePhoneAccessChart(props) {
     console.log(data);
   }, [data]);
   return (
+    <ResponsiveContainer>
     <PieChart width={400} height={400}>
       <Pie
         data={data}
@@ -54,5 +55,6 @@ export default function MobilePhoneAccessChart(props) {
         ))}
       </Pie>
     </PieChart>
+    </ResponsiveContainer>
   );
 }

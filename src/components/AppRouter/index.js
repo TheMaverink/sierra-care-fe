@@ -5,6 +5,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import pages from "pages";
 import NotFound from "pages/NotFound";
 
+import PageWrapper from "components/PageWrapper"
+
 import { isAppLoadingSelector } from "containers/Misc/selectors";
 import { isThisVolunteerAuthenticatedSelector } from "containers/Volunteers/selectors";
 
@@ -26,7 +28,7 @@ const AppRouter = (props) => {
             <Route
               key={routeId}
               path={`/${pagePath}`}
-              element={<PageComponent />}
+              element={<PageWrapper><PageComponent /></PageWrapper>}
             />
           ) : (
             <Route
@@ -41,7 +43,7 @@ const AppRouter = (props) => {
           <Route
             key={routeId}
             path={`/${pagePath}`}
-            element={<PageComponent {...props} />}
+            element={<PageWrapper><PageComponent {...props} /></PageWrapper>}
           />
         );
       })}

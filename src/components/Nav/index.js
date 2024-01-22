@@ -1,23 +1,47 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
-import { logoutVolunteerAction } from "containers/Volunteers/actions";
+import styled from "styled-components";
 
-export default function Nav() {
-  const dispatch = useDispatch();
+import NavHeader from "./NavHeader";
+import NavItem from "./NavItem";
 
+import { navConfig } from "./config";
+
+const NavStyled = styled.aside`
+  grid-area: sidebar;
+  height: 100%;
+  background-color: #263043;
+  overflow-y: auto;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  display: ${(props) => (props.openSidebarToggle ? `inline !important` : ``)};
+  position: ${(props) => (props.openSidebarToggle ? `absolute` : `relative`)};
+  z-index: ${(props) => (props.openSidebarToggle ? `12 !important` : ``)};
+ 
+
+  ul {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  @media screen and (max-width: 992px) {
+    display: none;
+  }
+`;
+
+const Nav = ({ openSidebarToggle, openSideBar }) => {
   return (
-    <div>
-      <Link to="/dashboard">Dashboard</Link>
-      <Link to="/patients">Patients</Link>
-      <Link to="/volunteers">Volunteers</Link>
-      <Link to="/clinics">Clinics</Link>
+    <NavStyled openSidebarToggle={openSidebarToggle}>
+      <NavHeader openSideBar={openSideBar} />
 
-      <button onClick={async () => dispatch(logoutVolunteerAction())}>
-        LOGOUT
-      </button>
-      <Link to="/profile">Profile</Link>
-    </div>
+      <ul>
+        {navConfig.map((navItem) => {
+          const { title, to, icon } = navItem;
+          return <NavItem title={title} to={to} icon={icon} />;
+        })}
+      </ul>
+    </NavStyled>
   );
-}
+};
+
+export default Nav;
