@@ -29,15 +29,15 @@ const NavStyled = styled.aside`
   }
 `;
 
-const Nav = ({ openSidebarToggle, openSideBar }) => {
+const Nav = ({ openSideBar }) => {
   return (
-    <NavStyled openSidebarToggle={openSidebarToggle}>
+    <NavStyled >
       <NavHeader openSideBar={openSideBar} />
 
       <ul>
         {navConfig.map((navItem) => {
           const { title, to, icon } = navItem;
-          return <NavItem title={title} to={to} icon={icon} />;
+          return <NavItem title={title} to={to} icon={icon} key={`nav-menu-item-${title}`} />;
         })}
       </ul>
     </NavStyled>

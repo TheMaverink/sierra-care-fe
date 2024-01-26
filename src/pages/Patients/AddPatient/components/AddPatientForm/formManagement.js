@@ -67,8 +67,7 @@ export const handleGetLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log("POSITION!");
-        console.log(position);
+   
         const { latitude, longitude } = position.coords;
         // setFieldValue(field.name, { latitude, longitude });
       },

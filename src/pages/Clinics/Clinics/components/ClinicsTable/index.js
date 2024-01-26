@@ -77,8 +77,7 @@ export default function ClinicsTable(props) {
               <TableBody>
                 {data &&
                   data.map((row, index) => {
-                    console.log("row");
-                    console.log(row);
+      
                     const clinicId = row.id
                     const isItemSelected = isSelected(clinicId);
                     const labelId = `enhanced-table-checkbox-${index}`;

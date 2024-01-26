@@ -52,9 +52,6 @@ export const clinicsListNormalizedDataSelector = createSelector(
           logs,
         } = clinicData;
 
-        console.log("clinicData");
-        console.log(clinicData);
-
         normalizeDataArray.push({
           id,
           image: images?.length > 0 && images[0],

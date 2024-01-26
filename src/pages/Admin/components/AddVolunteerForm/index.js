@@ -15,8 +15,7 @@ const CreatePatientLog = ({ patientId, patient }) => {
   const dispatch = useDispatch();
 
   const onSubmit = (values) => {
-    console.log("values");
-    console.log(values);
+
 
     dispatch(createPatientLogAction({ ...values, patientId }));
   };

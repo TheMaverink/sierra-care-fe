@@ -41,7 +41,6 @@ const LoginForm = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      console.log("Form submitted with values:", values);
       await dispatch(loginVolunteerAction(values));
     },
   });

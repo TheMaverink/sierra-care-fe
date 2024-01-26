@@ -25,8 +25,7 @@ const ClinicForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log("values");
-        console.log(values);
+ 
         dispatch(createClinicAction(values));
       }}
     >

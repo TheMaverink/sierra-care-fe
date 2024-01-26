@@ -41,10 +41,7 @@ const renderCustomizedLabel = (props) => {
 export default function EnglishLevelChart(props) {
   const { data, label } = props;
 
-  React.useEffect(() => {
-    console.log("WQK!!");
-    console.log(props);
-  }, [props]);
+
   return (
     <ResponsiveContainer>
       <PieChart width={400} height={400}>

@@ -33,10 +33,7 @@ const renderCustomizedLabel = (props) => {
 export default function MobilePhoneAccessChart(props) {
   const { data } = props;
 
-  React.useEffect(() => {
-    console.log("WQK!!");
-    console.log(data);
-  }, [data]);
+
   return (
     <ResponsiveContainer>
     <PieChart width={400} height={400}>

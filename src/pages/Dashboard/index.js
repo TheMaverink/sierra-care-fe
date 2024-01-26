@@ -32,16 +32,7 @@ export default function DashboardPage() {
     dispatch(getVolunteersOverviewAction());
   }, []);
 
-  React.useEffect(() => {
-    console.log("patientsOverview");
-    console.log(patientsOverview);
-    // console.log("volunteersOverview");
-    // console.log(volunteersOverview);
-    // console.log("patientsOverviewChartsData");
-    // console.log(patientsOverviewChartsData);
-    // console.log("patientsOverview?.patientsBornThisYear");
-    // console.log(patientsOverview?.patientsBornThisYear);
-  }, [patientsOverview, volunteersOverview, patientsOverviewChartsData]);
+
 
   return (
     <>

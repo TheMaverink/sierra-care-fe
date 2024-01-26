@@ -77,8 +77,7 @@ export default function VolunteersTable(props) {
               <TableBody>
                 {data &&
                   data.map((row, index) => {
-                    console.log("row");
-                    console.log(row);
+            
                     const volunteerId = row.id;
                     const isItemSelected = isSelected(volunteerId);
                     const labelId = `enhanced-table-checkbox-${index}`;

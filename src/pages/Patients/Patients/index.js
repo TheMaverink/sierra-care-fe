@@ -1,20 +1,32 @@
 import React from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import debounce from "lodash.debounce";
 
-import PatientsFilters from "./components/PatientsFilters";
-import PatientsTable from "./components/PatientsTable";
+import Table from "./components/Table";
 
 import { getPatientsAction } from "containers/Patients/actions";
+
 import {
   patientsListSelector,
   isPatientsSliceLoadingSelector,
   patientsListNormalizedDataSelector,
 } from "containers/Patients/selectors";
 
+const PatientsPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
+`;
+
 export default function PatientsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const patientsList = useSelector(patientsListSelector);
   const patientsListNormalizedData = useSelector(
     patientsListNormalizedDataSelector
@@ -23,58 +35,63 @@ export default function PatientsPage() {
 
   const [limit, setLimit] = React.useState(10);
 
-  const [searchQuery, setsSearchQuery] = React.useState("");
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("firstName");
-  const [selected, setSelected] = React.useState([]);
-  const [tableDataRows, setTableDataRows] = React.useState({
-    name: "",
-    sex: "",
-    ageRange: [0, 100],
-  });
-
-  const [tableFilters, setTableFilters] = React.useState([]);
-
   React.useEffect(() => {
     const initialPatientsFetch = async () => {
-      dispatch(getPatientsAction({ page: 1, limit, searchQuery }));
+      dispatch(getPatientsAction({ page: 1, limit: 10, searchQuery: "" }));
     };
     initialPatientsFetch();
   }, []);
 
-  const updateFilters = (values) => {
-    setTableFilters(values);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      gender: "all",
+      ageRange: [0, 100],
+    },
+  });
 
-    dispatch(getPatientsAction({ page: 1, limit, searchQuery: values.name }));
+  const handleSearch = debounce((values) => {
+    dispatch(
+      getPatientsAction({
+        page: 1,
+        limit: 10,
+        searchQuery: values?.name,
+        gender: values?.gender,
+        ageMin: values?.ageRange[0],
+        ageMax: values?.ageRange[1],
+      })
+    );
+  }, 1000);
+
+  React.useEffect(() => {
+    if (formik.dirty) {
+      handleSearch(formik.values);
+    }
+  }, [formik.values]);
+
+  const handleActionButton = () => {
+    navigate("/addPatient");
+  };
+
+  const handleChangePage = (event, newPage) => {
+    // dispatch(getPatientsAction({ page: newPage + 1, limit, searchQuery }));
+    console.log("FIX THIS");
   };
 
   return (
-    <>
-      <button onClick={() => navigate("/addPatient")}>Add Patient</button>
-
-      <PatientsFilters
-        tableFilters={tableFilters}
-        setTableFilters={setTableFilters}
-        updateFilters={updateFilters}
-      ></PatientsFilters>
-
-      <PatientsTable
+    <PatientsPageWrapper>
+      <Table
+        formik={formik}
+        actionButtonText="Add Patient"
+        handleActionButton={handleActionButton}
+        handleChangePage={handleChangePage}
         data={patientsListNormalizedData}
-        patientsList={patientsList}
+        page={patientsList?.currentPage - 1}
+        count={patientsList?.totalItems}
         limit={limit}
         setLimit={setLimit}
-        searchQuery={searchQuery}
-        setsSearchQuery={setsSearchQuery}
-        order={order}
-        setOrder={setOrder}
-        orderBy={orderBy}
-        setOrderBy={setOrderBy}
-        selected={selected}
-        setSelected={setSelected}
-        tableDataRows={tableDataRows}
-        setTableDataRows={setTableDataRows}
         isLoading={isLoading}
       />
-    </>
+    </PatientsPageWrapper>
   );
 }

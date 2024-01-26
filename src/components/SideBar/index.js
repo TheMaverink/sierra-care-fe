@@ -25,13 +25,7 @@ const SideBar = () => {
 
   const thisVolunteer = useSelector(thisVolunteerSelector);
 
-  React.useEffect(() => {
-    console.log("thisVolunteer");
-    console.log(thisVolunteer);
 
-    console.log("colors");
-    console.log(colors);
-  }, [thisVolunteer, colors]);
 
   return (
     <Box

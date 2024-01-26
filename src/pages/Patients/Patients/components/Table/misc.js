@@ -1,3 +1,6 @@
+export const navItemHeight = 50;
+
+
 export const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -48,7 +51,7 @@ export const normalizeData = (data) => {
       firstName,
       middleName,
       lastName,
-      sex,
+      gender,
       patientImages,
       dob,
       pregnant,
@@ -58,7 +61,7 @@ export const normalizeData = (data) => {
     normalizeDataArray.push({
       image: patientImages?.length > 0 && patientImages[0],
       name: `${firstName} ${middleName ? middleName[0] : ""} ${lastName}`,
-      sex,
+      gender,
       pregnant,
       dob,
       healthRisk,

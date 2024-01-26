@@ -1,9 +1,11 @@
 import axios from "config/api";
 
 export const getPatientsApi = (payload) => {
-  const { page, limit, searchQuery } = payload;
+  const { page, limit, searchQuery, gender, ageMin, ageMax } = payload;
 
-  const url = `/patients?page=${page}&limit=${limit}&searchQuery=${searchQuery}`;
+  const url = `/patients?page=${page}&limit=${limit}&searchQuery=${searchQuery || ""}&gender=${
+    gender ? gender : "all"
+  }&ageMin=${ageMin ? ageMin : 0}&ageMax=${ageMax ? ageMax : 100}`;
 
   return axios.get(url);
 };
@@ -22,6 +24,5 @@ export const getPatientsOverviewApi = () => {
 };
 
 export const createPatientLogApi = (payload) => {
-  return axios.post(`/patients/log/new`,payload);
+  return axios.post(`/patients/log/new`, payload);
 };
-

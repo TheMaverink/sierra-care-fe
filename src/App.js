@@ -36,8 +36,8 @@ const AppStyled = styled.div`
 
 function App() {
   const dispatch = useDispatch();
-  const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = React.useState(true);
+  // const [theme, colorMode] = useMode();
+  // const [isSidebar, setIsSidebar] = React.useState(true);
 
   const [openSidebarToggle, setOpenSidebarToggle] = React.useState(false);
 
@@ -56,13 +56,9 @@ function App() {
   return (
     <BrowserRouter>
       <AppStyled className="app">
-     
         <Header openSideBar={() => setOpenSidebarToggle(!openSidebarToggle)} />
         {isThisVolunteerAuthenticated && (
-          <Nav
-            openSidebarToggle={openSidebarToggle}
-            openSideBar={() => setOpenSidebarToggle(!openSidebarToggle)}
-          />
+          <Nav openSideBar={() => setOpenSidebarToggle(!openSidebarToggle)} />
         )}
 
         <AppRouter />

@@ -56,8 +56,6 @@ export const patientsListNormalizedDataSelector = createSelector(
           healthRisk,
         } = patientData;
 
-        console.log("patientData");
-        console.log(patientData);
 
         normalizeDataArray.push({
           id,

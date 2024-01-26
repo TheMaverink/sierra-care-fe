@@ -74,9 +74,6 @@ export const volunteersListNormalizedDataSelector = createSelector(
           logs,
         } = volunteerData;
 
-        console.log("volunteerData");
-        console.log(volunteerData);
-
         normalizeDataArray.push({
           id,
           image: volunteerImages?.length > 0 && volunteerImages[0],

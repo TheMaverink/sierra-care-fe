@@ -34,8 +34,7 @@ const VolunteerForm = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log("values");
-        console.log(values);
+
         dispatch(createVolunteerAction(values));
       }}
     >

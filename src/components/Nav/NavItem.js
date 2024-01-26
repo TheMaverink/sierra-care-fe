@@ -21,8 +21,10 @@ const NavItemStyled = styled.li`
 const NavItem = (props) => {
   const { title, to, icon, selected } = props;
 
+  const isThisNavItemSelected = false //fix this
+
   return (
-    <NavItemStyled active={selected === title}>
+    <NavItemStyled>
       <Link to={to}>
         {icon}
         <Typography sx={{ color: "red", textEffect: "none" }}>
