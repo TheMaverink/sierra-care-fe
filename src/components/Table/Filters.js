@@ -26,8 +26,7 @@ const FieldWrapper = styled.div`
 
 const Filters = ({ formik }) => {
   const fields = formik.initialValues;
-  console.log("fields!!!!");
-  console.log(fields);
+
   return (
     <FiltersBarWrapper>
       <form>
@@ -58,6 +57,24 @@ const Filters = ({ formik }) => {
                 <MenuItem value="male">Male</MenuItem>
                 <MenuItem value="female">Female</MenuItem>
                 <MenuItem value="other">Other</MenuItem>
+              </Select>
+            </FieldWrapper>
+          )}
+
+          {"gender" in fields && (
+            <FieldWrapper>
+              <div className="field-wrapper-label">Role</div>
+              <Select
+                defaultValue="all"
+                label="Role"
+                variant="outlined"
+                name="role"
+                onChange={formik.handleChange}
+              >
+                <MenuItem value="all">All</MenuItem>
+                <MenuItem value="normal">Normal</MenuItem>
+                <MenuItem value="external">External</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
               </Select>
             </FieldWrapper>
           )}

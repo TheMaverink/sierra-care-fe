@@ -1,9 +1,10 @@
 import React from "react";
+import styled from "styled-components";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import ClinicsFilters from "./components/ClinicsFilters";
-import ClinicsTable from "./components/ClinicsTable";
+import { useFormik } from "formik";
+import debounce from "lodash.debounce";
 
 import { getClinicsAction } from "containers/Clinics/actions";
 import {
@@ -12,69 +13,95 @@ import {
   clinicsListNormalizedDataSelector,
 } from "containers/Clinics/selectors";
 
+import { isThisVolunteerAdminSelector } from "containers/Volunteers/selectors";
+
+import Table from "components/Table";
+
+import { tableName, headCells, itemNavigateBaseUrl } from "./tableConfig";
+
+const ClinicsPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
+`;
+
 export default function ClinicsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const clinicsList = useSelector(clinicsListSelector);
   const clinicsListNormalizedData = useSelector(
     clinicsListNormalizedDataSelector
   );
+
+  const isThisVolunteerAdmin = useSelector(isThisVolunteerAdminSelector);
+
   const isLoading = useSelector(isClinicsSliceLoadingSelector);
 
   const [limit, setLimit] = React.useState(10);
 
-  const [searchQuery, setsSearchQuery] = React.useState("");
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("firstName");
-  const [selected, setSelected] = React.useState([]);
-  const [tableDataRows, setTableDataRows] = React.useState({
-    name: "",
-    sex: "",
-    ageRange: [0, 100],
-  });
-
-  const [tableFilters, setTableFilters] = React.useState([]);
-
   React.useEffect(() => {
     const initialClinicsFetch = async () => {
-      dispatch(getClinicsAction({ page: 1, limit, searchQuery }));
+      dispatch(getClinicsAction({ page: 1, limit, searchQuery: "" }));
     };
     initialClinicsFetch();
   }, []);
 
-  const updateFilters = (values) => {
-    setTableFilters(values);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+    },
+  });
 
-    dispatch(getClinicsAction({ page: 1, limit, searchQuery: values.name }));
+  const handleSearch = debounce((values) => {
+    dispatch(
+      getClinicsAction({
+        page: 1,
+        limit: 10,
+        searchQuery: values?.name,
+      })
+    );
+  }, 1000);
+
+  React.useEffect(() => {
+    if (formik.dirty) {
+      handleSearch(formik.values);
+    }
+  }, [formik.values]);
+
+  const handleActionButton = () => {
+    navigate("/addClinic");
+  };
+
+  const handleChangePage = (event, newPage) => {
+    dispatch(
+      getClinicsAction({
+        page: newPage + 1,
+        limit,
+        searchQuery: formik.values?.name,
+      })
+    );
   };
 
   return (
-    <>
-      <button onClick={() => navigate("/addClinic")}>Add Clinic</button>
-
-      <ClinicsFilters
-        tableFilters={tableFilters}
-        setTableFilters={setTableFilters}
-        updateFilters={updateFilters}
-      ></ClinicsFilters>
-
-      <ClinicsTable
+    <ClinicsPageWrapper>
+      <Table
+        tableName={tableName}
+        headCells={headCells}
+        itemNavigateBaseUrl={itemNavigateBaseUrl}
+        formik={formik}
+        actionButtonText={isThisVolunteerAdmin ? "Add Clinic" : null}
+        handleActionButton={handleActionButton}
+        handleChangePage={handleChangePage}
         data={clinicsListNormalizedData}
-        clinicsList={clinicsList}
+        page={clinicsList?.currentPage - 1}
+        count={clinicsList?.totalItems}
         limit={limit}
         setLimit={setLimit}
-        searchQuery={searchQuery}
-        setsSearchQuery={setsSearchQuery}
-        order={order}
-        setOrder={setOrder}
-        orderBy={orderBy}
-        setOrderBy={setOrderBy}
-        selected={selected}
-        setSelected={setSelected}
-        tableDataRows={tableDataRows}
-        setTableDataRows={setTableDataRows}
         isLoading={isLoading}
       />
-    </>
+    </ClinicsPageWrapper>
   );
 }

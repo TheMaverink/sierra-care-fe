@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Table from "@mui/material/Table";
@@ -15,8 +14,6 @@ import Button from "@mui/material/Button";
 import Filters from "./Filters";
 import TableHead from "./TableHead";
 
-import { tableName, itemNavigateBaseUrl, headCells } from "./tableConfig";
-
 const TableWrapper = styled.div`
   width: 100%;
   margin: 0 5%;
@@ -28,10 +25,12 @@ const TableFiltersWrapper = styled.div`
 
 export default function (props) {
   const {
+    tableName,
+    headCells,
+    itemNavigateBaseUrl,
     limit,
     page,
     count,
-    searchQuery,
     isLoading,
     data,
     formik,
@@ -40,7 +39,6 @@ export default function (props) {
     handleChangePage,
   } = props;
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const emptyRows = limit - data?.length;
@@ -62,7 +60,7 @@ export default function (props) {
         <Paper sx={{ width: "100%", mb: 2 }}>
           <TableContainer>
             <Table aria-labelledby="tableTitle" size={"medium"}>
-              <TableHead />
+              <TableHead headCells={headCells} />
               <TableBody>
                 {data?.map((row, index) => {
                   const itemId = row.id;
@@ -78,12 +76,19 @@ export default function (props) {
                       sx={{ cursor: "pointer" }}
                     >
                       {headCells.map((headCell, index) => {
+                        let value;
+                        if (!!headCell.boolean) {
+                          value = row[headCell.id] ? "yes" : "no";
+                        } else {
+                          value = row[headCell.id];
+                        }
+
                         return (
                           <TableCell
                             key={`${tableName}-cell-${index}`}
                             align="center"
                           >
-                            {row[headCell.id]}
+                            {value}
                           </TableCell>
                         );
                       })}

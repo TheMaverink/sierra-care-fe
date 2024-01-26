@@ -1,3 +1,5 @@
+export const navItemHeight = 50;
+
 export const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -40,20 +42,4 @@ export const handleRequestSort = (
   setOrderBy(property);
 };
 
-export const normalizeData = (data) => {
-  let normalizeDataArray = [];
 
-  data.forEach((clinicData) => {
-    const {
-      name,
-      images,
-    } = clinicData;
-
-    normalizeDataArray.push({
-      image: images?.length > 0 && images[0],
-      name,
-    });
-  });
-
-  return normalizeDataArray;
-};

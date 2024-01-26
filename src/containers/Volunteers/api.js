@@ -15,9 +15,11 @@ export const createVolunteerApi = (payload) => {
 };
 
 export const getVolunteersApi = (payload) => {
-  const { page, limit, searchQuery } = payload;
+  const { page, limit, searchQuery, gender, role } = payload;
 
-  const url = `/volunteers?page=${page}&limit=${limit}&searchQuery=${searchQuery}`;
+  const url = `/volunteers?page=${page}&limit=${limit}&searchQuery=${
+    searchQuery || ""
+  }&gender=${gender ? gender : "all"}&role=${role ? role : "all"}`;
 
   return axios.get(url);
 };

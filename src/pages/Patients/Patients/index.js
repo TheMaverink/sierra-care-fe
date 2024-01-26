@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import debounce from "lodash.debounce";
 
-import Table from "./components/Table";
+import Table from "components/Table";
 
 import { getPatientsAction } from "containers/Patients/actions";
 
@@ -14,6 +14,8 @@ import {
   isPatientsSliceLoadingSelector,
   patientsListNormalizedDataSelector,
 } from "containers/Patients/selectors";
+
+import { tableName, headCells, itemNavigateBaseUrl } from "./tableConfig";
 
 const PatientsPageWrapper = styled.div`
   display: flex;
@@ -64,9 +66,11 @@ export default function PatientsPage() {
   }, 1000);
 
   React.useEffect(() => {
-    if (formik.dirty) {
+    console.log(formik.values.name)
+    console.log(formik.touched)
+
       handleSearch(formik.values);
-    }
+    
   }, [formik.values]);
 
   const handleActionButton = () => {
@@ -74,13 +78,25 @@ export default function PatientsPage() {
   };
 
   const handleChangePage = (event, newPage) => {
-    // dispatch(getPatientsAction({ page: newPage + 1, limit, searchQuery }));
-    console.log("FIX THIS");
+    dispatch(
+      getPatientsAction({
+        page: newPage + 1,
+        limit,
+        searchQuery: formik.values?.name,
+        gender: formik.values?.gender,
+        ageMin: formik.values?.ageRange[0],
+        ageMax: formik.values?.ageRange[1],
+      })
+    );
+
   };
 
   return (
     <PatientsPageWrapper>
       <Table
+        tableName={tableName}
+        headCells={headCells}
+        itemNavigateBaseUrl={itemNavigateBaseUrl}
         formik={formik}
         actionButtonText="Add Patient"
         handleActionButton={handleActionButton}

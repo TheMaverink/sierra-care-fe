@@ -19,6 +19,13 @@ export const thisVolunteerSelector = createSelector(
   }
 );
 
+export const isThisVolunteerAdminSelector = createSelector(
+  thisVolunteerSelector,
+  (thisVolunteer) => {
+    return thisVolunteer?.role === "admin";
+  }
+);
+
 export const isVolunteersSliceLoadingSelector = createSelector(
   volunteersSelector,
   (volunteersState) => {

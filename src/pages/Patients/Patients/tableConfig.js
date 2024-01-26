@@ -22,6 +22,7 @@ export const headCells = [
     {
       id: "pregnant",
       numeric: false,
+      boolean:true,
       disablePadding: false,
       label: "is Pregnant?",
     },
