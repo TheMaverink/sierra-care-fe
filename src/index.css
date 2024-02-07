@@ -9,7 +9,7 @@ body {
     background-color: #1d2634;
     color: #9e9ea4;
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 code {

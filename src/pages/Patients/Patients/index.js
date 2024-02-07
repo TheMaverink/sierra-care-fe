@@ -30,9 +30,11 @@ export default function PatientsPage() {
   const navigate = useNavigate();
 
   const patientsList = useSelector(patientsListSelector);
+
   const patientsListNormalizedData = useSelector(
     patientsListNormalizedDataSelector
   );
+  
   const isLoading = useSelector(isPatientsSliceLoadingSelector);
 
   const [limit, setLimit] = React.useState(10);
@@ -67,10 +69,7 @@ export default function PatientsPage() {
 
   React.useEffect(() => {
     console.log(formik.values.name)
-    console.log(formik.touched)
-
-      handleSearch(formik.values);
-    
+    handleSearch(formik.values);
   }, [formik.values]);
 
   const handleActionButton = () => {
@@ -88,7 +87,6 @@ export default function PatientsPage() {
         ageMax: formik.values?.ageRange[1],
       })
     );
-
   };
 
   return (

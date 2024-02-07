@@ -3,9 +3,21 @@ import axios from "config/api";
 export const getPatientsApi = (payload) => {
   const { page, limit, searchQuery, gender, ageMin, ageMax } = payload;
 
-  const url = `/patients?page=${page}&limit=${limit}&searchQuery=${searchQuery || ""}&gender=${
+  console.log("searchQuery")
+  console.log(searchQuery)
+
+  const encodedSearchQuery = encodeURIComponent(searchQuery);
+
+  console.log("encodedSearchQuery")
+  console.log(encodedSearchQuery)
+
+  const url = `/patients?page=${page}&limit=${limit}&searchQuery=${encodedSearchQuery || ""}&gender=${
     gender ? gender : "all"
   }&ageMin=${ageMin ? ageMin : 0}&ageMax=${ageMax ? ageMax : 100}`;
+
+  console.log("url")
+  console.log(url)
+
 
   return axios.get(url);
 };

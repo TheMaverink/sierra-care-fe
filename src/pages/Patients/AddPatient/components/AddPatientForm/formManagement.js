@@ -1,31 +1,35 @@
 import * as Yup from "yup";
+import { setDefaults, fromLatLng } from "react-geocode";
+
+setDefaults({
+  key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  language: "en",
+  region: "us",
+});
 
 export const validationSchema = Yup.object({
   firstName: Yup.string().required("Required"),
   middleName: Yup.string(),
   lastName: Yup.string().required("Required"),
-  // dob: Yup.date().required("Required"),
+  dob: Yup.date().required("Required"),
   gender: Yup.string().required("Required"),
+  isPregnant: Yup.boolean(),
+  conceivingDate: Yup.date(),
   maritalStatus: Yup.string(),
   noOfChildren: Yup.number(),
   job: Yup.string(),
   income: Yup.string(),
   englishSpeakingLevel: Yup.number(),
   ownsMobilePhone: Yup.boolean().required("Required"),
-  // mobilePhone: Yup.string().when("ownsMobilePhone", {
-  //   is: true,
-  //   then: Yup.string().required("Required"),
-  //   otherwise: Yup.string(),
-  // }),
-  locationCoordinates: Yup.string(),
-  address: Yup.string(),
-  isPregnant: Yup.boolean(),
-  // conceivingDate: Yup.date().when("isPregnant", {
-  //   is: true,
-  //   then: Yup.date().required("Required"),
-  //   otherwise: Yup.date(),
-  // }),
+  mobilePhone: Yup.string(),
   email: Yup.string().email("Invalid email"),
+  locationCoordinates: Yup.object().required(
+    "Location coordinates are required"
+  ),
+  locationCoordinatesFormatted:Yup.string(),
+  doesLiveAtFetchedLocation: Yup.boolean().required("Required"),
+  addressLocationCoordinates: Yup.object(),
+  addressLocationCoordinatesFormatted: Yup.string(),
   bloodType: Yup.string(),
   healthRisk: Yup.number(),
 });
@@ -44,7 +48,10 @@ export const initialValues = {
   ownsMobilePhone: false,
   mobilePhone: "",
   locationCoordinates: "",
-  address: "",
+  locationCoordinatesFormatted:"",
+  addressLocationCoordinates: "",
+  addressLocationCoordinatesFormatted: "",
+  doesLiveAtFetchedLocation: true,
   isPregnant: false,
   conceivingDate: undefined,
   email: "",
@@ -63,13 +70,26 @@ export const maritalStatusOptions = [
 ];
 export const bloodTypeOptions = ["A", "B", "AB", "O"];
 
-export const handleGetLocation = () => {
+export const handleGetLocation = async (formik) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-   
+      async (position) => {
+        console.log(position);
         const { latitude, longitude } = position.coords;
-        // setFieldValue(field.name, { latitude, longitude });
+
+        formik.setFieldValue("locationCoordinates", {
+          lat: latitude,
+          lng: longitude,
+        });
+
+        const result = await fromLatLng(latitude, longitude);
+
+
+
+        formik.setFieldValue(
+          "locationCoordinatesFormatted",
+          result?.results[0]?.formatted_address
+        );
       },
       (error) => {
         console.error("Error getting location:", error.message);

@@ -1,15 +1,21 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
 import AddPatientForm from "./components/AddPatientForm";
-import { getPatientsAction } from "containers/Patients/actions";
 
+const AddPatientPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5%;
+  background-color: white;
+`;
 
-export default function AddPatient() {
-  const dispatch = useDispatch();
+export default function AddPatientPage() {
   return (
-    <>
+    <AddPatientPageWrapper>
       <AddPatientForm />
-    </>
+    </AddPatientPageWrapper>
   );
 }

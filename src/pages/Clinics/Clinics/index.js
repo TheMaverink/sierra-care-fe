@@ -32,6 +32,7 @@ export default function ClinicsPage() {
   const navigate = useNavigate();
 
   const clinicsList = useSelector(clinicsListSelector);
+
   const clinicsListNormalizedData = useSelector(
     clinicsListNormalizedDataSelector
   );
@@ -66,9 +67,7 @@ export default function ClinicsPage() {
   }, 1000);
 
   React.useEffect(() => {
-    if (formik.dirty) {
-      handleSearch(formik.values);
-    }
+    handleSearch(formik.values);
   }, [formik.values]);
 
   const handleActionButton = () => {
